@@ -89,9 +89,6 @@ function HeroBanner() {
       <div className="absolute inset-0 bg-gradient-to-r from-[#0D0A06]/82 via-[#0D0A06]/44 to-transparent" />
       <div className="absolute inset-0 bg-gradient-to-t from-[#0D0A06]/65 via-transparent to-[#0D0A06]/18" />
 
-      {/* Grain texture */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
-        style={{ backgroundImage: "repeating-linear-gradient(-45deg,rgba(184,149,42,1),rgba(184,149,42,1) 1px,transparent 1px,transparent 80px)" }} />
 
       {/* Left gold bar */}
       <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-transparent via-[#B8952A]/75 to-transparent" />
