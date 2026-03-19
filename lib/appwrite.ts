@@ -20,3 +20,7 @@ export const DATABASE_ID =
 
 export const RESIDENCES_COLLECTION_ID =
   process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_ID!;
+
+  
+
+  
