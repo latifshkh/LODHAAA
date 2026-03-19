@@ -21,9 +21,18 @@ const REQUIRED_COLUMNS = ["name", "location", "type", "beds"];
 const ALL_COLUMNS = ["name", "location", "type", "beds", "price", "area", "status", "floors", "order", "imageUrl"];
 
 const SAMPLE_CSV = `name,location,type,beds,price,area,status,floors,order,imageUrl
-World One,Worli Sea Face Mumbai,Ultra Luxury,3-5 BHK,₹ 12 Cr+,2800-6200 sq.ft,Ready to Move,117 Floors,1,https://example.com/image1.jpg
-Lodha Malabar,Malabar Hill Mumbai,Ultra Luxury,4-6 BHK,₹ 25 Cr+,4200-9000 sq.ft,Accepting Expressions,42 Floors,2,
-Lodha Park,Lower Parel Mumbai,Premium,2-4 BHK,₹ 8.5 Cr+,1850-3600 sq.ft,Limited Units,68 Floors,3,`;
+World One,Worli Sea Face Mumbai,Ultra Luxury,3-5 BHK,₹ 12 Cr+,2800-6200 sq.ft,Ready to Move,117 Floors,1,https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80
+Lodha Malabar,Malabar Hill Mumbai,Ultra Luxury,4-6 BHK,₹ 25 Cr+,4200-9000 sq.ft,Accepting Expressions,42 Floors,2,https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80
+Lodha Park,Lower Parel Mumbai,Premium,2-4 BHK,₹ 8.5 Cr+,1850-3600 sq.ft,Limited Units,68 Floors,3,https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80
+Lodha Altamount,Altamount Road Mumbai,Ultra Luxury,4-5 BHK,₹ 30 Cr+,5500-8200 sq.ft,Sold Out,38 Floors,4,https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=80
+New Cuffe Parade,Wadala Mumbai,Premium,2-4 BHK,₹ 4.5 Cr+,1200-2800 sq.ft,Ready to Move,58 Floors,5,https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=800&q=80
+Palava Lakeshore,Palava City Dombivli,New Launch,1-3 BHK,₹ 75 L+,650-1450 sq.ft,New Launch,32 Floors,6,https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800&q=80
+Lincoln Square,Holborn London,Premium,1-3 Bed,£ 1.8M+,850-2200 sq.ft,Enquire Now,26 Floors,7,https://images.unsplash.com/photo-1533929736458-ca588d08c8be?w=800&q=80
+Lodha Belmondo,Pune Mumbai Expressway,Premium,3-5 BHK,₹ 3.2 Cr+,2100-4400 sq.ft,Ready to Move,Villas & High-rise,8,https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=80
+Lodha Azzuro,Koregaon Park Pune,Premium,2-3 BHK,₹ 1.8 Cr+,1100-1800 sq.ft,Ready to Move,24 Floors,9,https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80
+Lodha Meridian,HITECH City Hyderabad,Premium,2-4 BHK,₹ 2.5 Cr+,1300-2600 sq.ft,Ready to Move,36 Floors,10,https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&q=80
+125 Greenwich,Lower Manhattan New York,Ultra Luxury,1-4 Bed,$ 2.5M+,900-4500 sq.ft,Enquire Now,88 Floors,11,https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&q=80
+Lodha DAMAC Hills,DAMAC Hills Dubai,Ultra Luxury,3-6 BHK,AED 4.5M+,3000-8000 sq.ft,Accepting Expressions,52 Floors,12,https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&q=80`;
 
 function parseCSV(text: string): ResidenceRow[] {
   const lines = text.trim().split("\n").filter(Boolean);
