@@ -1,18 +1,15 @@
-import FeaturedProperties from "./components/Featuredproperties";
-import Footer from "./components/Footer";
 import HeroSection from "./components/Herosection";
-import Navbar from "./components/Navbar";
-import { CTASection, DestinationsStrip, LegacySection } from "./components/setions";
+import FeaturedProperties from "./components/Featuredproperties";
+import { LegacySection, DestinationsStrip, CTASection } from "./components/sections";
 
 export default function HomePage() {
   return (
-    <main className="bg-[#080806] min-h-screen">
-      <Navbar />
+    <>
       <HeroSection />
       <FeaturedProperties />
       <LegacySection />
       <DestinationsStrip />
       <CTASection />
-    </main>
+    </>
   );
 }
