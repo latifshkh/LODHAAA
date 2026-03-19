@@ -138,26 +138,28 @@ export default function ResidencesPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-   const fetchResidences = async () => {
-  try {
-    setLoading(true);
-    setError(null);
-    const response = await databases.listDocuments(
-      DATABASE_ID,
-      RESIDENCES_COLLECTION_ID,
-    );
-    const sorted = response.documents.map((doc) => doc as unknown as Residence).sort((a, b) => {
-      if (a.order && b.order) return a.order.localeCompare(b.order);
-      return 0;
-    });
-    setResidences(sorted);
-  } catch (err) {
-    console.error("Appwrite fetch error:", err);
-    setError("Failed to load residences. Please try again.");
-  } finally {
-    setLoading(false);
-  }
-};
+    const fetchResidences = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const response = await databases.listDocuments(
+          DATABASE_ID,
+          RESIDENCES_COLLECTION_ID,
+        );
+        const sorted = response.documents
+          .map((doc) => doc as unknown as Residence)
+          .sort((a, b) => {
+            if (a.order && b.order) return a.order.localeCompare(b.order);
+            return 0;
+          });
+        setResidences(sorted);
+      } catch (err) {
+        console.error("Appwrite fetch error:", err);
+        setError("Failed to load residences. Please try again.");
+      } finally {
+        setLoading(false);
+      }
+    };
 
     fetchResidences();
   }, []);
@@ -174,18 +176,17 @@ export default function ResidencesPage() {
       className="min-h-screen"
       style={{ background: "#FAF6EF", fontFamily: "'Montserrat', sans-serif" }}
     >
+      {/* Google Font */}
       <link
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@200;300;400;500&display=swap"
         rel="stylesheet"
       />
 
-      {/* Hero */}
+      {/* ---------- HERO ---------- */}
       <div className="relative pt-40 pb-24 overflow-hidden">
         <div
           className="absolute inset-0"
-          style={{
-            background: "linear-gradient(160deg,#F5EDE0 0%,#FAF6EF 60%)",
-          }}
+          style={{ background: "linear-gradient(160deg,#F5EDE0 0%,#FAF6EF 60%)" }}
         />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_0%,rgba(184,149,42,0.08)_0%,transparent_70%)]" />
         <div
@@ -229,7 +230,7 @@ export default function ResidencesPage() {
         </div>
       </div>
 
-      {/* Filters */}
+      {/* ---------- FILTERS ---------- */}
       <div
         className="sticky top-20 z-40 border-y border-[#B8952A]/15"
         style={{
@@ -243,11 +244,16 @@ export default function ResidencesPage() {
               <button
                 key={f}
                 onClick={() => setActiveFilter(f)}
-                className={`px-6 py-4 text-[9px] tracking-[0.45em] uppercase font-light whitespace-nowrap transition-all duration-300 border-b-2 ${activeFilter === f ? "text-[#B8952A] border-[#B8952A]" : "text-[#1C1610]/35 border-transparent hover:text-[#1C1610]/65"}`}
+                className={`px-6 py-4 text-[9px] tracking-[0.45em] uppercase font-light whitespace-nowrap transition-all duration-300 border-b-2 ${
+                  activeFilter === f
+                    ? "text-[#B8952A] border-[#B8952A]"
+                    : "text-[#1C1610]/35 border-transparent hover:text-[#1C1610]/65"
+                }`}
               >
                 {f}
               </button>
             ))}
+            {/* Uncomment when you want the count display */}
             {/* <div className="ml-auto pl-8 pr-2 text-[#1C1610]/30 text-[9px] tracking-[0.3em] uppercase font-light whitespace-nowrap">
               {loading ? "—" : `${filtered.length} Properties`}
             </div> */}
@@ -255,9 +261,9 @@ export default function ResidencesPage() {
         </div>
       </div>
 
-      {/* Grid */}
+      {/* ---------- MAIN GRID ---------- */}
       <div className="max-w-[1320px] mx-auto px-6 lg:px-16 py-16">
-        {/* Error state */}
+        {/* ---- Error ---- */}
         {error && (
           <div className="text-center py-20">
             <p className="text-red-500 text-sm font-light">{error}</p>
@@ -270,7 +276,7 @@ export default function ResidencesPage() {
           </div>
         )}
 
-        {/* Loading skeletons */}
+        {/* ---- Loading skeletons ---- */}
         {loading && !error && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
             {Array.from({ length: 8 }).map((_, i) => (
@@ -279,7 +285,7 @@ export default function ResidencesPage() {
           </div>
         )}
 
-        {/* Empty state */}
+        {/* ---- Empty state ---- */}
         {!loading && !error && filtered.length === 0 && (
           <div className="text-center py-24">
             <p className="text-[#1C1610]/30 text-[9px] tracking-[0.5em] uppercase font-light">
@@ -294,7 +300,7 @@ export default function ResidencesPage() {
           </div>
         )}
 
-        {/* Cards */}
+        {/* ---- CARD LIST ---- */}
         {!loading && !error && filtered.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
             {filtered.map((r, index) => (
@@ -305,36 +311,43 @@ export default function ResidencesPage() {
                 onMouseLeave={() => setHovered(null)}
               >
                 <div
-                  className={`border transition-all duration-700 overflow-hidden ${hovered === r.$id ? "border-[#B8952A]/40 shadow-[0_8px_40px_rgba(184,149,42,0.12)]" : "border-[#B8952A]/12"}`}
+                  className={`
+                    border transition-all duration-700 overflow-hidden
+                    ${hovered === r.$id ? "border-[#B8952A]/40 shadow-[0_8px_40px_rgba(184,149,42,0.12)]" : "border-[#B8952A]/12"}
+                  `}
                   style={{
                     background: hovered === r.$id ? "#FFFDF8" : "#FBF7F0",
                   }}
                 >
-                  {/* Illustration */}
+                  {/* ==== Image / SVG container (fixed height) ==== */}
                   <div
-                    className="relative aspect-[2/3] overflow-hidden"
-                    style={{
-                      background:
-                        "linear-gradient(160deg,#F0E8D5 0%,#EDE3CC 100%)",
-                    }}
+                    className="relative w-full overflow-hidden"
+                    style={{ height: "300px" }} // <‑‑ change this value to make the card taller/shorter
                   >
                     {r.imageUrl ? (
                       <img
                         src={r.imageUrl}
                         alt={r.name}
-                        className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       />
                     ) : (
                       <BuildingSVG seed={(index + 1) * 3} />
                     )}
-                    {/* <div className="absolute inset-0 bg-gradient-to-t from-[#000000]/80 via-transparent to-transparent" /> */}
+
+                    {/* Status badge (top‑left) */}
                     <div className="absolute top-3 left-3">
                       <span
-                        className={`text-[7px] tracking-[0.4em] uppercase font-light px-3 py-1.5 border ${statusStyle(r.status)}`}
+                        className={`
+                          text-[7px] tracking-[0.4em] uppercase font-light px-3 py-1.5 border ${statusStyle(
+                            r.status,
+                          )}
+                        `}
                       >
                         {r.status}
                       </span>
                     </div>
+
+                    {/* Floors badge (top‑right) */}
                     <div className="absolute top-3 right-3">
                       <span className="text-[#1C1610]/30 text-[7px] tracking-[0.3em] uppercase font-light">
                         {r.floors}
@@ -342,8 +355,9 @@ export default function ResidencesPage() {
                     </div>
                   </div>
 
-                  {/* Info */}
+                  {/* ==== Text / Details section ==== */}
                   <div className="p-5 flex flex-col gap-3">
+                    {/* Title & location */}
                     <div>
                       <p className="text-[#B8952A] text-[7px] tracking-[0.5em] uppercase font-light">
                         {r.location}
@@ -358,7 +372,10 @@ export default function ResidencesPage() {
                         {r.name}
                       </h3>
                     </div>
+
                     <div className="h-px bg-gradient-to-r from-[#B8952A]/25 to-transparent group-hover:from-[#B8952A]/55 transition-all duration-700" />
+
+                    {/* Price & config */}
                     <div className="flex justify-between items-end">
                       <div>
                         <p className="text-[#1C1610]/30 text-[7px] tracking-[0.4em] uppercase font-light">
@@ -383,8 +400,13 @@ export default function ResidencesPage() {
                         </p>
                       </div>
                     </div>
+
+                    {/* Hover “View Details” */}
                     <div
-                      className={`flex items-center gap-2 pt-1 transition-all duration-500 ${hovered === r.$id ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1"}`}
+                      className={`
+                        flex items-center gap-2 pt-1 transition-all duration-500
+                        ${hovered === r.$id ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1"}
+                      `}
                     >
                       <span className="text-[#B8952A] text-[7px] tracking-[0.45em] uppercase font-light">
                         View Details
@@ -399,7 +421,7 @@ export default function ResidencesPage() {
         )}
       </div>
 
-      {/* CTA */}
+      {/* ---------- CTA ---------- */}
       <div
         className="border-t border-[#B8952A]/12 py-20 text-center"
         style={{ background: "#F5EDE0" }}
