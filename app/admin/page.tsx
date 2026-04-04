@@ -5,8 +5,10 @@ import {
   databases,
   DATABASE_ID,
   RESIDENCES_COLLECTION_ID,
+  account,
 } from "@/lib/appwrite";
 import { Client, Storage, ID, Models, Query } from "appwrite";
+import { useRouter } from "next/navigation";
 
 /* ── Appwrite Storage client ── */
 const client = new Client()
@@ -144,6 +146,19 @@ export default function AdminPage() {
     setToast({ msg, ok });
     setTimeout(() => setToast(null), 3500);
   };
+
+  const router = useRouter();
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        await account.get();
+      } catch {
+        router.push("/login");
+      }
+    };
+    checkAuth();
+  }, [router]);
 
   const f = (k: keyof typeof EMPTY_FORM) => (v: string) =>
     setForm((p) => ({ ...p, [k]: v }));
